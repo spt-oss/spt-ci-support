@@ -1,0 +1,44 @@
+checkout:
+    post:
+        - |
+            set -eo pipefail
+            cat ./installer/install-circleci-aws-cli.sh | bash 2>&1             | grep aws-cli
+        - |
+            set -eo pipefail
+            cat ./installer/install-circleci-maven.sh   | bash -s -- 3.3.9      | (( $(grep -c Download) >= 0 ))
+            cat ./installer/install-circleci-maven.sh   | bash -s -- 3.3.9      | (( $(grep -c Download) == 0 ))
+            cat ./installer/install-circleci-maven.sh   | bash -s -- 3.3.9      | grep 3.3.9
+        - |
+            set -eo pipefail
+            cat ./installer/install-circleci-docker.sh  | bash -s -- 1.10.0     | grep 1.10.0
+        - |
+            set -eo pipefail
+            cat ./installer/install-command.sh          | bash -s -- /usr/local/bin; popushd .
+#        - |
+#            set -eo pipefail
+#            cat ./installer/install-gpg-key.sh          | bash -s -- https://goo.gl/iQAT3h ${OPENSSL_PASSWORD}
+        - |
+            set -eo pipefail
+            cat ./installer/install-newrelic-jar.sh     | bash -s -- ~; [[ -e ~/newrelic.jar ]] || exit ${?}
+
+dependencies:
+    override:
+        - |
+            set -eo pipefail
+            cat ./installer/install-brotli.sh           | bash -s -- ~/.m2      | (( $(grep -c Cloning) >= 0 ))
+            cat ./installer/install-brotli.sh           | bash -s -- ~/.m2      | (( $(grep -c Cloning) == 0 ))
+            cat ./installer/install-brotli.sh           | bash -s -- ~/.m2      | grep bro
+        - |
+            set -eo pipefail
+            cat ./installer/install-zopfli.sh           | bash -s -- ~/.m2 2>&1 | (( $(grep -c Cloning) >= 0 ))
+            cat ./installer/install-zopfli.sh           | bash -s -- ~/.m2 2>&1 | (( $(grep -c Cloning) == 0 ))
+            cat ./installer/install-zopfli.sh           | bash -s -- ~/.m2 2>&1 | grep zopfli
+
+test:
+    override:
+        - |
+            set -e
+            source ./.circleci/test/ecr-upload-tests.sh
+        - |
+            set -e
+            source ./.circleci/test/ecs-deploy-tests.sh

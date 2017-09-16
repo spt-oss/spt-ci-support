@@ -1,0 +1,49 @@
+version: 2
+jobs:
+    build:
+        working_directory: ~/spt-ci-support
+        docker:
+            - image: circleci/openjdk:8-jdk
+#            - image: circleci/node:latest
+        steps:
+            
+            # checkout
+            - checkout:
+                path: ~/spt-ci-support
+            - run: |
+                cat ./installer/install-circleci-aws-cli.sh | bash 2>&1             | grep aws-cli
+            - run: |
+                cat ./installer/install-circleci-maven.sh   | bash -s -- 3.3.9      | (( $(grep -c Download) >= 0 ))
+                cat ./installer/install-circleci-maven.sh   | bash -s -- 3.3.9      | (( $(grep -c Download) == 0 ))
+                cat ./installer/install-circleci-maven.sh   | bash -s -- 3.3.9      | grep 3.3.9
+            - run: |
+                cat ./installer/install-command.sh          | bash -s -- /usr/local/bin; popushd .
+            - run: |
+                cat ./installer/install-gpg-key.sh          | bash -s -- https://goo.gl/iQAT3h ${OPENSSL_PASSWORD}
+            - run: |
+                cat ./installer/install-newrelic-jar.sh     | bash -s -- ~; [[ -e ~/newrelic.jar ]] || exit ${?}
+            
+            # dependencies
+            - restore_cache:
+                keys:
+                    - cache-{{ .Branch }}
+            - run: |
+                cat ./installer/install-brotli.sh           | bash -s -- ~/.m2      | (( $(grep -c Cloning) >= 0 ))
+                cat ./installer/install-brotli.sh           | bash -s -- ~/.m2      | (( $(grep -c Cloning) == 0 ))
+                cat ./installer/install-brotli.sh           | bash -s -- ~/.m2      | grep bro
+            - run: |
+                sudo apt-get remove make gcc
+            - run: |
+                cat ./installer/install-zopfli.sh           | bash -s -- ~/.m2 2>&1 | (( $(grep -c Cloning) >= 0 ))
+                cat ./installer/install-zopfli.sh           | bash -s -- ~/.m2 2>&1 | (( $(grep -c Cloning) == 0 ))
+                cat ./installer/install-zopfli.sh           | bash -s -- ~/.m2 2>&1 | grep zopfli
+            - save_cache:
+                paths:
+                    - ~/.m2
+                key: cache-{{ .Branch }}
+            
+            # test
+            - run: |
+                source ./.circleci/test/ecr-upload-tests.sh
+            - run: |
+                source ./.circleci/test/ecs-deploy-tests.sh
