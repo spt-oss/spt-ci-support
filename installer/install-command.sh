@@ -3,12 +3,18 @@
 set -eu
 set -o pipefail
 
-COMMAND_NAMES=( \
+COMMAND_AWS=( \
 	ecr-upload \
 	ecs-deploy \
+)
+
+COMMAND_GIT=( \
 	git-config-user \
 	git-flow-release-finish \
 	git-push-all \
+)
+
+COMMAND_MVN=( \
 	mvn-deploy \
 	mvn-go-offline \
 	mvn-license-format \
@@ -18,22 +24,48 @@ COMMAND_NAMES=( \
 	mvn-repackage \
 	mvn-settings \
 	mvn-test \
-	popushd \
 )
 
 function self::install() {
 	
 	local location=${1}
+	local group=${2:aws,git,mvn}
 	local name
 	
-	for name in ${COMMAND_NAMES[@]}; do
+	if [[ ${group} =~ aws ]]; then
 		
-		curl -fsSL https://github.com/spt-oss/spt-ci-support/raw/master/command/${name}.sh -o ~${name}.sh
+		for name in ${COMMAND_AWS[@]}; do
+			
+			self::import ${location} ${name}
+		done
+	fi
+	
+	if [[ ${group} =~ git ]]; then
 		
-		chmod +x ~${name}.sh
-		sudo mv ~${name}.sh ${location}/${name}
+		for name in ${COMMAND_GIT[@]}; do
+			
+			self::import ${location} ${name}
+		done
+	fi
+	
+	if [[ ${group} =~ mvn ]]; then
 		
-	done
+		for name in ${COMMAND_MVN[@]}; do
+			
+			self::import ${location} ${name}
+		done
+	fi
+}
+
+function self::import() {
+	
+	local location=${1}
+	local name=${2}
+	
+	curl -fsSL https://github.com/spt-oss/spt-ci-support/raw/master/command/${name}.sh -o ~${name}.sh
+	
+	chmod +x ~${name}.sh
+	sudo mv ~${name}.sh ${location}/${name}
 }
 
 {

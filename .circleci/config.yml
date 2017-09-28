@@ -17,7 +17,7 @@ jobs:
                 cat ./installer/install-circleci-maven.sh   | bash -s -- 3.3.9      | (( $(grep -c Download) == 0 ))
                 cat ./installer/install-circleci-maven.sh   | bash -s -- 3.3.9      | grep 3.3.9
             - run: |
-                cat ./installer/install-command.sh          | bash -s -- /usr/local/bin; popushd .
+                cat ./installer/install-command.sh          | bash -s -- /usr/local/bin mvn; which mvn-test
             - run: |
                 cat ./installer/install-gpg-key.sh          | bash -s -- https://goo.gl/iQAT3h ${OPENSSL_PASSWORD}
             - run: |
