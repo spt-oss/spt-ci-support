@@ -21,7 +21,7 @@ jobs:
             - run: |
                 cat ./installer/install-gpg-key.sh          | bash -s -- https://goo.gl/iQAT3h ${OPENSSL_PASSWORD}
             - run: |
-                cat ./installer/install-newrelic-jar.sh     | bash -s -- ~; [[ -e ~/newrelic.jar ]] || exit ${?}
+                cat ./installer/install-newrelic-jar.sh     | bash -s -- ~; [[ -e ~/newrelic.jar ]]
             
             # dependencies
             - restore_cache:
