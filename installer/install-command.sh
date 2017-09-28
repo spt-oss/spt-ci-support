@@ -29,7 +29,7 @@ COMMAND_MVN=( \
 function self::install() {
 	
 	local location=${1}
-	local group=${2:aws,git,mvn}
+	local group=${2:-aws,git,mvn}
 	local name
 	
 	if [[ ${group} =~ aws ]]; then
