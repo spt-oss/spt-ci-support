@@ -13,13 +13,13 @@ checkout:
             cat ./installer/install-circleci-docker.sh  | bash -s -- 1.10.0     | grep 1.10.0
         - |
             set -eo pipefail
-            cat ./installer/install-command.sh          | bash -s -- /usr/local/bin; popushd .
+            cat ./installer/install-command.sh          | bash -s -- /usr/local/bin mvn; which mvn-test
 #        - |
 #            set -eo pipefail
 #            cat ./installer/install-gpg-key.sh          | bash -s -- https://goo.gl/iQAT3h ${OPENSSL_PASSWORD}
         - |
             set -eo pipefail
-            cat ./installer/install-newrelic-jar.sh     | bash -s -- ~; [[ -e ~/newrelic.jar ]] || exit ${?}
+            cat ./installer/install-newrelic-jar.sh     | bash -s -- ~; [[ -e ~/newrelic.jar ]]
 
 dependencies:
     override:
