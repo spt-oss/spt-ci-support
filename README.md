@@ -45,7 +45,6 @@
 	| ecs-deploy  | [spt-oss/ecs-deploy](https://github.com/spt-oss/ecs-deploy)                                    |
 	| git-*       | [Git](https://git-scm.com/)                                                                    |
 	| mvn-*       | [Maven](https://maven.apache.org/)                                                             |
-	| popushd     | popd + pushd                                                                                   |
 
 ## Usage
 
