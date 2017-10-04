@@ -55,12 +55,9 @@ function self::determine-properties() {
 	
 	if [[ ${latest_task} != false ]] && [[ -n ${aws_region} ]] && [[ -n ${ecs_service} ]]; then
 		
-		local task_def
-		
-		task_def="$(aws ecs list-task-definitions \
-			--region ${aws_region} --family-prefix ${ecs_service} --sort DESC --max-items 1)"
-		
-		ecs_task=$(echo ${task_def} | jq -r .taskDefinitionArns[]) || :
+		ecs_task=$(aws ecs list-task-definitions \
+			--region ${aws_region} --family-prefix ${ecs_service} --sort DESC --max-items 1 | \
+			jq -r .taskDefinitionArns[]) || :
 	fi
 }
 

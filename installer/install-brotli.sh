@@ -6,7 +6,7 @@ set -o pipefail
 function self::install() {
 	
 	# Create cache
-		if [ ! -d brotli ]; then
+	if [ ! -d brotli ]; then
 		
 		git clone https://github.com/google/brotli.git
 		
