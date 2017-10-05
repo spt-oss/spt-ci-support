@@ -4,7 +4,7 @@ set -eu
 set -o pipefail
 
 EXECUTOR=${BASH_SOURCE%/*}/../../command/ecs-deploy.sh
-DELEGATE=/tmp/~ecs-deploy.sh
+DELEGATE=/tmp/ecs-deploy.delegate.sh
 
 function test::before() {
 	
@@ -13,6 +13,11 @@ function test::before() {
 	
 	mkdir -p $(dirname ${DELEGATE})
 	echo 'echo ecs-deploy ${@}' > ${DELEGATE}
+}
+
+function test::enable-aws-error() {
+	
+	eval 'function aws() { echo "awscli error" >&2; return 1; }'
 }
 
 function test::enable-aws-task() {
@@ -35,7 +40,7 @@ function test::after() {
 
 function test::assert-image-error() {
 	
-	(ecs-deply) && return ${?}
+	(ecs-deply) && return 1
 	
 	echo $( (ecs-deply) ) | \
 		grep 'Usage' | grep '\-i' || return ${?}
@@ -43,7 +48,7 @@ function test::assert-image-error() {
 
 function test::assert-region-error() {
 	
-	(ecs-deply -i image) && return ${?}
+	(ecs-deply -i image) && return 1
 	
 	echo $( (ecs-deply -i image) ) | \
 		grep 'Usage' | grep '\-r' || return ${?}
@@ -66,12 +71,19 @@ function test::assert-normal() {
 
 function test::assert-latest-task() {
 	
-	(ecs-deply -i .ecr.us-west-1. -n service -ldn) && return ${?}
+	(ecs-deply -i .ecr.us-west-1. -n service -ldn) && return 1
 	
 	echo $( (ecs-deply -i .ecr.us-west-1. -n service -ldn 2>&1 1>/dev/null) ) | \
 		grep 'Cannot iterate' || return ${?}
-	echo $( (ecs-deply -i .ecr.us-west-1. -n service -ldn) ) | \
+	echo $( (ecs-deply -i .ecr.us-west-1. -n service -ldn 2>/dev/null) ) | \
 		grep 'Usage' | grep '\-ldn' || return ${?}
+	
+	test::enable-aws-error
+	
+	(ecs-deply -i .ecr.us-west-1. -n service -ldn) && return 1
+	
+	echo $( (ecs-deply -i .ecr.us-west-1. -n service -ldn 2>&1 1>/dev/null) ) | \
+		grep 'awscli error' || return ${?}
 	
 	test::enable-aws-task
 	
@@ -83,7 +95,7 @@ function test::assert-delegate() {
 	
 	test::disable-delegate-mock
 	
-	ecs-deply -i .ecr.us-west-1. -n example -ldn && return ${?}
+	ecs-deply -i .ecr.us-west-1. -n example -ldn && return 1
 	
 	echo $(ecs-deply -i .ecr.us-west-1. -n example -ldn) | \
 		grep '\--cluster' || return ${?}

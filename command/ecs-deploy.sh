@@ -105,7 +105,7 @@ function self::rewrite-arguments() {
 
 function self::deploy() {
 	
-	local delegate=/tmp/~ecs-deploy.sh
+	local delegate=/tmp/ecs-deploy.delegate.sh
 	
 	if [ ! -f ${delegate} ]; then
 		
