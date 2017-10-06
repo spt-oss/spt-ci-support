@@ -232,7 +232,7 @@
 ### Refine Maven build in CircleCI
 
 * See the examples below.
-	* [spt-oss/spt-maven-parent](https://github.com/spt-oss/spt-maven-parent)
+	* [spt-oss/spt-java-parent](https://github.com/spt-oss/spt-java-parent)
 
 ## License
 
