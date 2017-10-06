@@ -77,6 +77,8 @@ function self::clean() {
 		--region ${aws_region} \
 		--repository-name ${repo_name})
 	
+	echo ${image_details}
+	
 	local image_digests=( $(echo ${image_details} | \
 		jq -r '.imageDetails[] | ' \
 			'select(.imagePushedAt < '${filter_date}') | ' \
@@ -84,9 +86,11 @@ function self::clean() {
 			'.[:'${max_items}'] | ' \
 			'.[].imageDigest' || :) )
 	
+	echo ${image_digests}
+	
 	local image_digest
 	
-	for image_digest in ${image_digests[@]}; do
+	for image_digest in ${image_digests[@]:-}; do
 		
 		aws ecr batch-delete-image \
 			--region ${aws_region} \
