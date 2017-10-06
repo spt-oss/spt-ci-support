@@ -79,7 +79,7 @@ function self::clean() {
 	
 	echo ${image_details}
 	
-	local image_digests=( $(echo ${image_details} | \
+	local image_digests=( $(echo "${image_details}" | \
 		jq -r '.imageDetails[] | ' \
 			'select(.imagePushedAt < '${filter_date}') | ' \
 			'sort_by(.imagePushedAt) | ' \
