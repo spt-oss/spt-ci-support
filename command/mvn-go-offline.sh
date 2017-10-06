@@ -10,21 +10,22 @@ function self::command() {
 	#mvn dependency:go-offline
 	mvn install -DskipTests -Dcheckstyle.skip=true
 	
-	mvn help:help
-	mvn clean:help
-	mvn source:help
-	mvn javadoc:help
-	mvn resources:help
-	mvn minify:help
-	mvn compiler:help
-	mvn surefire:help
-	mvn jar:help
-	mvn spring-boot:help
-	mvn checkstyle:help
-	mvn gpg:help
-	mvn license:help
-	mvn install:help
-	mvn release:help
+	mvn \
+		help:help \
+		clean:help \
+		source:help \
+		javadoc:help \
+		resources:help \
+		minify:help \
+		compiler:help \
+		surefire:help \
+		jar:help \
+		spring-boot:help \
+		checkstyle:help \
+		gpg:help \
+		license:help \
+		install:help \
+		release:help
 }
 
 {
