@@ -5,21 +5,21 @@ set -o pipefail
 
 function self::install() {
 	
-	local location=${1}
-	
 	curl -fsSLO https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip
 	unzip -q newrelic-java.zip
 	
-	mv newrelic/newrelic.jar ${location}
+	mv newrelic/newrelic.jar .
 	
 	rm -r newrelic/
 	rm newrelic-java.zip
 }
 
 {
-	pushd /tmp/ > /dev/null
+	mkdir -p ${1}
 	
-	self::install ${@}
+	pushd ${1} > /dev/null
+	
+	self::install
 	
 	popd > /dev/null
 }
