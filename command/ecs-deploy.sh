@@ -34,7 +34,7 @@ function self::parse-arguments() {
 				;;
 			
 			-ldn)
-				latest_task=${2:true}
+				latest_task=${2:-true}
 				;;
 			
 			*)
