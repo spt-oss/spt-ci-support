@@ -34,7 +34,7 @@ function self::parse-arguments() {
 				;;
 			
 			-ldn)
-				latest_task=true
+				latest_task=${2:true}
 				;;
 			
 			*)
@@ -53,11 +53,21 @@ function self::determine-properties() {
 		aws_region=$(echo ${docker_image} | grep -oP '\.ecr\.\K([^\.]+)') || :
 	fi
 	
-	if [[ ${latest_task} != false ]] && [[ -n ${aws_region} ]] && [[ -n ${ecs_service} ]]; then
+	if [[ ${latest_task} != false ]] && [[ -n ${aws_region} ]]; then
 		
-		ecs_task=$(aws ecs list-task-definitions \
-			--region ${aws_region} --family-prefix ${ecs_service} --sort DESC --max-items 1 | \
-			jq -r .taskDefinitionArns[]) || :
+		local prefix=${ecs_service}
+		
+		if [[ ${latest_task} != true ]]; then
+			
+			prefix=${latest_task}
+		fi
+		
+		if [[ -n ${prefix} ]]; then
+			
+			ecs_task=$(aws ecs list-task-definitions \
+				--region ${aws_region} --family-prefix ${prefix} --sort DESC --max-items 1 | \
+				jq -r .taskDefinitionArns[]) || :
+		fi
 	fi
 }
 
@@ -77,7 +87,7 @@ function self::validate-properties() {
 		
 	elif [[ ${latest_task} != false ]] && [[ -z ${ecs_task} ]]; then
 		
-		echo 'Usage: '$(basename ${0})' -n [ecs-service] -ldn ......'
+		echo 'Usage: '$(basename ${0})' -n [ecs-service] -ldn [prefix or empty] ......'
 		
 		exit 1
 	fi
