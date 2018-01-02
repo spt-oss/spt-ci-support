@@ -9,6 +9,7 @@ docker_image=
 aws_region=
 ecs_service=
 latest_task=false
+task_family=
 ecs_task=
 arguments=()
 
@@ -34,7 +35,12 @@ function self::parse-arguments() {
 				;;
 			
 			-ldn)
-				latest_task=${2:-true}
+				latest_task=true
+				;;
+			
+			-f)
+				task_family=${2}
+				shift
 				;;
 			
 			*)
@@ -57,9 +63,9 @@ function self::determine-properties() {
 		
 		local prefix=${ecs_service}
 		
-		if [[ ${latest_task} != true ]]; then
+		if [[ -n ${task_family} ]]; then
 			
-			prefix=${latest_task}
+			prefix=${task_family}
 		fi
 		
 		if [[ -n ${prefix} ]]; then
