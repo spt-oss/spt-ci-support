@@ -8,7 +8,7 @@ function self::command() {
 	# TODO https://issues.apache.org/jira/browse/MDEP-516
 	# TODO https://issues.apache.org/jira/browse/MDEP-568
 	#mvn dependency:go-offline
-	mvn install -DskipTests -Dcheckstyle.skip=true
+	mvn install --batch-mode -DskipTests -Dcheckstyle.skip=true
 	
 	mvn \
 		help:help \
@@ -25,7 +25,8 @@ function self::command() {
 		gpg:help \
 		license:help \
 		install:help \
-		release:help
+		release:help \
+		--batch-mode
 }
 
 {
