@@ -5,7 +5,7 @@ set -o pipefail
 
 function self::command() {
 	
-	mvn verify
+	mvn verify ${@}
 }
 
 {
