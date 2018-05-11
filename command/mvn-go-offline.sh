@@ -16,6 +16,7 @@ function self::command() {
 	mvn \
 		javadoc:help \
 		spring-boot:help \
+		license:format \
 		--batch-mode
 }
 
