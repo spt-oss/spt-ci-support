@@ -16,7 +16,7 @@ checkout:
             cat ./installer/install-command.sh          | bash -s -- /usr/local/bin mvn; which mvn-test
 #        - |
 #            set -eo pipefail
-#            cat ./installer/install-gpg-key.sh          | bash -s -- https://goo.gl/iQAT3h ${OPENSSL_PASSWORD}
+#            cat ./installer/install-gpg-key.sh          | bash -s -- https://git.io/vpDIO ${OPENSSL_PASSWORD}
         - |
             set -eo pipefail
             cat ./installer/install-newrelic-jar.sh     | bash -s -- ~; [[ -e ~/newrelic.jar ]]

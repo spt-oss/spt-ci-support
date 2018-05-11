@@ -26,16 +26,16 @@
 
 * Installer
 
-	| Name                        | Short URL             | Reference                                                                                                          |
-	| ---                         | ---                   | ---                                                                                                                |
-	| install-circleci-aws-cli.sh | https://goo.gl/TxRMcu | [AWS CLI](https://github.com/aws/aws-cli)                                                                          |
-	| install-circleci-docker.sh  | https://goo.gl/sqB5kK | [circleci/docker](https://github.com/circleci/docker)                                                              |
-	| install-circleci-maven.sh   | https://goo.gl/SjUH1i | [Maven](https://maven.apache.org/)                                                                                 |
-	| install-brotli.sh           | https://goo.gl/NDPcpi | [Brotli](https://github.com/google/brotli)                                                                         |
-	| install-zopfli.sh           | https://goo.gl/qqsPUK | [Zopfli](https://github.com/google/zopfli)                                                                         |
-	| install-newrelic-jar.sh     | https://goo.gl/VZYNYT | [New Relic for Java](https://docs.newrelic.com/docs/agents/java-agent/getting-started/introduction-new-relic-java) |
-	| install-gpg-key.sh          | https://goo.gl/dPhYzo | [PGP Signatures with Maven](http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven/)           |
-	| install-command.sh          | https://goo.gl/PcfcFG | -                                                                                                                  |
+	| Name                        | Short URL            | Reference                                                                                                          |
+	| ---                         | ---                  | ---                                                                                                                |
+	| install-circleci-aws-cli.sh | https://git.io/vpRJu | [AWS CLI](https://github.com/aws/aws-cli)                                                                          |
+	| install-circleci-docker.sh  | https://git.io/vpDkh | [circleci/docker](https://github.com/circleci/docker)                                                              |
+	| install-circleci-maven.sh   | https://git.io/vpDIf | [Maven](https://maven.apache.org/)                                                                                 |
+	| install-brotli.sh           | https://git.io/vpDIU | [Brotli](https://github.com/google/brotli)                                                                         |
+	| install-zopfli.sh           | https://git.io/vpDIk | [Zopfli](https://github.com/google/zopfli)                                                                         |
+	| install-newrelic-jar.sh     | https://git.io/vpDIL | [New Relic for Java](https://docs.newrelic.com/docs/agents/java-agent/getting-started/introduction-new-relic-java) |
+	| install-gpg-key.sh          | https://git.io/vpDIq | [PGP Signatures with Maven](http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven/)           |
+	| install-command.sh          | https://git.io/vpRJr | -                                                                                                                  |
 
 * Command
 
@@ -53,7 +53,7 @@
 * CircleCI 2.0
 
     ```yaml
-    - run: curl -fsSL https://goo.gl/TxRMcu | bash
+    - run: curl -fsSL https://git.io/vpRJu | bash
     ```
 
 * CircleCI 1.0
@@ -61,7 +61,7 @@
     ```yaml
     machine:
         pre:
-            - curl -fsSL https://goo.gl/TxRMcu | bash
+            - curl -fsSL https://git.io/vpRJu | bash
     ```
 
 ### Update Docker in CircleCI
@@ -71,7 +71,7 @@
     ```yaml
     machine:
         pre:
-            - curl -fsSL https://goo.gl/sqB5kK | bash -s -- 1.10.0  # <1.9.0~1.10.0>
+            - curl -fsSL https://git.io/vpDkh | bash -s -- 1.10.0  # <1.9.0~1.10.0>
     ```
 
 ### Update Maven in CircleCI
@@ -79,7 +79,7 @@
 * CircleCI 2.0
 
     ```yaml
-    - run: curl -fsSL https://goo.gl/SjUH1i | bash -s -- 3.5.0  # <3.0.4~>
+    - run: curl -fsSL https://git.io/vpDIf | bash -s -- 3.5.0  # <3.0.4~>
     ```
 
 * CircleCI 1.0
@@ -87,7 +87,7 @@
     ```yaml
     machine:
         pre:
-            - curl -fsSL https://goo.gl/SjUH1i | bash -s -- 3.5.0  # <3.0.4~>
+            - curl -fsSL https://git.io/vpDIf | bash -s -- 3.5.0  # <3.0.4~>
     ```
 
 ### Install Brotli
@@ -95,7 +95,7 @@
 * Any CI
 
     ```bash
-    $ curl -fsSL https://goo.gl/NDPcpi | bash -s -- ~/.foo  # <cache-directory>
+    $ curl -fsSL https://git.io/vpDIU | bash -s -- ~/.foo  # <cache-directory>
     ```
 
 * CircleCI 2.0
@@ -104,7 +104,7 @@
     - restore_cache:
         keys:
             - XXXXXXXXXX
-    - run: curl -fsSL https://goo.gl/NDPcpi | bash -s -- ~/.foo  # <cache-directory>
+    - run: curl -fsSL https://git.io/vpDIU | bash -s -- ~/.foo  # <cache-directory>
     - save_cache:
         paths:
             - ~/.foo
@@ -116,7 +116,7 @@
     ```yaml
     dependencies:
         post:
-            - curl -fsSL https://goo.gl/NDPcpi | bash -s -- ~/.foo  # <cache-directory>
+            - curl -fsSL https://git.io/vpDIU | bash -s -- ~/.foo  # <cache-directory>
     ```
 
 ### Install Zopfli
@@ -124,7 +124,7 @@
 * Any CI
 
     ```bash
-    $ curl -fsSL https://goo.gl/qqsPUK | bash -s -- ~/.foo  # <cache-directory>
+    $ curl -fsSL https://git.io/vpDIk | bash -s -- ~/.foo  # <cache-directory>
     ```
 
 * CircleCI 2.0
@@ -133,7 +133,7 @@
     - restore_cache:
         keys:
             - XXXXXXXXXX
-    - run: curl -fsSL https://goo.gl/qqsPUK | bash -s -- ~/.foo  # <cache-directory>
+    - run: curl -fsSL https://git.io/vpDIk | bash -s -- ~/.foo  # <cache-directory>
     - save_cache:
         paths:
             - ~/.foo
@@ -145,7 +145,7 @@
     ```yaml
     dependencies:
         post:
-            - curl -fsSL https://goo.gl/qqsPUK | bash -s -- ~/.foo  # <cache-directory>
+            - curl -fsSL https://git.io/vpDIk | bash -s -- ~/.foo  # <cache-directory>
     ```
 
 ### Install New Relic for Java
@@ -153,7 +153,7 @@
 * Any CI
 
 	```bash
-	$ curl -fsSL https://goo.gl/VZYNYT | bash -s -- ~/.foo  # <jar-file-directory>
+	$ curl -fsSL https://git.io/vpDIL | bash -s -- ~/.foo  # <jar-file-directory>
 	```
 
 ### Install GPG key
@@ -178,7 +178,7 @@
 	$ PUB_URL=https://example.com/path/pubring.gpg.enc  # <encrypted-pubring-url:public>
 	$ ENC_PASS=XXXXXXXXXX                               # <encrypt-password:secret>
 	
-	$ curl -fsSL https://goo.gl/dPhYzo | bash -s -- ${PUB_URL} ${ENC_PASS}
+	$ curl -fsSL https://git.io/vpDIq | bash -s -- ${PUB_URL} ${ENC_PASS}
 	```
 
 ### Upload Docker image to Amazon ECR
@@ -186,7 +186,7 @@
 1. Install `ecr-upload` command.
 
 	```bash
-	$ curl -fsSL https://goo.gl/PcfcFG | bash -s -- /usr/local/bin  # <directory-in-path>
+	$ curl -fsSL https://git.io/vpRJr | bash -s -- /usr/local/bin  # <directory-in-path>
 	```
 
 1. Configure the AWS CLI.
@@ -210,7 +210,7 @@
 1. Install `ecs-deploy` command.
 
 	```bash
-	$ curl -fsSL https://goo.gl/PcfcFG | bash -s -- /usr/local/bin  # <directory-in-path>
+	$ curl -fsSL https://git.io/vpRJr | bash -s -- /usr/local/bin  # <directory-in-path>
 	```
 
 1. Configure the AWS CLI.
