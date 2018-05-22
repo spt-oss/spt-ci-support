@@ -8,7 +8,7 @@ function self::command() {
 	local version=${1}
 	local status=0
 	
-	mvn release:prepare --batch-mode -DreleaseVersion=${version} -DskipTests || status=${?}
+	mvn release:prepare --batch-mode -DreleaseVersion=${version} -Darguments="-DskipTests" || status=${?}
 	
 	if [ ${status} != 0 ]; then
 		
@@ -17,7 +17,7 @@ function self::command() {
 		return ${status}
 	fi
 	
-	mvn release:perform --batch-mode
+	mvn release:perform --batch-mode -Darguments="-DskipTests"
 }
 
 {

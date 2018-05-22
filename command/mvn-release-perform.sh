@@ -5,7 +5,7 @@ set -o pipefail
 
 function self::command() {
 	
-	mvn release:perform --batch-mode ${@}
+	mvn release:perform --batch-mode -Darguments="-DskipTests" ${@}
 }
 
 {
