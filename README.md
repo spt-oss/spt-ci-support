@@ -31,6 +31,7 @@
 	| install-circleci-aws-cli.sh | https://git.io/vpRJu | [AWS CLI](https://github.com/aws/aws-cli)                                                                          |
 	| install-circleci-docker.sh  | https://git.io/vpDkh | [circleci/docker](https://github.com/circleci/docker)                                                              |
 	| install-circleci-maven.sh   | https://git.io/vpDIf | [Maven](https://maven.apache.org/)                                                                                 |
+	| install-terraform.sh        | https://git.io/vhPyD | [Terraform](https://www.terraform.io/)                                                                             |
 	| install-brotli.sh           | https://git.io/vpDIU | [Brotli](https://github.com/google/brotli)                                                                         |
 	| install-zopfli.sh           | https://git.io/vpDIk | [Zopfli](https://github.com/google/zopfli)                                                                         |
 	| install-newrelic-jar.sh     | https://git.io/vpDIL | [New Relic for Java](https://docs.newrelic.com/docs/agents/java-agent/getting-started/introduction-new-relic-java) |
@@ -88,6 +89,15 @@
     machine:
         pre:
             - curl -fsSL https://git.io/vpDIf | bash -s -- 3.5.0  # <3.0.4~>
+    ```
+
+### Install Terraform
+
+* Any CI
+
+    ```bash
+    $ curl -fsSL https://git.io/vhPyD | bash -s -- <cache-dir> <version>
+    $ curl -fsSL https://git.io/vhPyD | bash -s -- ~/.foo 0.11.7
     ```
 
 ### Install Brotli
