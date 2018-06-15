@@ -13,6 +13,7 @@
 	* [Update AWS CLI in CircleCI](#update-aws-cli-in-circleci)
 	* [Update Docker in CircleCI](#update-docker-in-circleci)
 	* [Update Maven in CircleCI](#update-maven-in-circleci)
+	* [Install Terraform](#install-terraform)
 	* [Install Brotli](#install-brotli)
 	* [Install Zopfli](#install-zopfli)
 	* [Install New Relic for Java](#install-new-relic-for-java)
